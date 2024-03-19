@@ -35,7 +35,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	text1, _ := reader.ReadString('\n')
 	text := strings.Split(text1, " ")
-	if len(text) == 1 {
+	if len(text) < 3 {
 		panic("Выдача паники, так как строка не является арифметической операцией")
 	} else if len(text) > 3 {
 		panic("Выдача паники, так как формат математической операции не удовлетворяе заданию - два операнда и один оператор(+, -, /, *)")
