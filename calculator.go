@@ -15,7 +15,9 @@ func check(text []string) int {
 
 	b := strings.TrimSpace((text[2]))
 	b1, _ := strconv.Atoi(b)
-
+	if a1 > 10 || b1 > 10 {
+		panic("Выдача паники, так как числа должны быть меньше либо равны 10")
+	}
 	if text[1] == ("+") {
 		return (a1 + b1)
 	} else if text[1] == ("-") {
@@ -25,7 +27,7 @@ func check(text []string) int {
 	} else if text[1] == ("/") {
 		return (a1 / b1)
 	} else {
-		return 0
+		panic("Выдача паники, так как строка не является арифметической операцией")
 	}
 }
 func main() {
@@ -33,6 +35,11 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	text1, _ := reader.ReadString('\n')
 	text := strings.Split(text1, " ")
+	if len(text) == 1 {
+		panic("Выдача паники, так как строка не является арифметической операцией")
+	} else if len(text) > 3 {
+		panic("Выдача паники, так как формат математической операции не удовлетворяе заданию - два операнда и один оператор(+, -, /, *)")
+	}
 	//Определение первого числа
 	FirstNumber0 := text[0]
 	FirstNumber := strings.Split(FirstNumber0, "")
@@ -40,9 +47,9 @@ func main() {
 	LastNumber0 := text[2]
 	LastNumber := strings.Split(LastNumber0, "")
 	// Проверка на тип данных
-	if FirstNumber[0] == "1" || FirstNumber[0] == "2" || FirstNumber[0] == "3" || FirstNumber[0] == "4" || FirstNumber[0] == "5" || FirstNumber[0] == "6" || FirstNumber[0] == "7" || FirstNumber[0] == "8" || FirstNumber[0] == "9" || FirstNumber[0] == "10" {
+	if (FirstNumber[0] == "1" || FirstNumber[0] == "2" || FirstNumber[0] == "3" || FirstNumber[0] == "4" || FirstNumber[0] == "5" || FirstNumber[0] == "6" || FirstNumber[0] == "7" || FirstNumber[0] == "8" || FirstNumber[0] == "9" || FirstNumber[0] == "10") && (LastNumber[0] == "1" || LastNumber[0] == "2" || LastNumber[0] == "3" || LastNumber[0] == "4" || LastNumber[0] == "5" || LastNumber[0] == "6" || LastNumber[0] == "7" || LastNumber[0] == "8" || LastNumber[0] == "9" || LastNumber[0] == "10") {
 		fmt.Println(check(text))
-	} else if FirstNumber[0] == "I" || FirstNumber[0] == "V" || FirstNumber[0] == "X" {
+	} else if (FirstNumber[0] == "I" || FirstNumber[0] == "V" || FirstNumber[0] == "X") && (LastNumber[0] == "I" || LastNumber[0] == "V" || LastNumber[0] == "X") {
 		//Определение Первого римского числа
 		FirstRome := []int{}
 		for _, i := range FirstNumber {
@@ -124,6 +131,8 @@ func main() {
 		var res int = check(text3)
 		Ator(res)
 
+	} else {
+		panic("Выдача паники, так как используются одновременно разные системы счисления")
 	}
 }
 
@@ -135,6 +144,10 @@ func repeat(symbol string, number int) string {
 	return str
 }
 func Ator(input int) {
+	if input < 0 {
+		panic("Выдача паники, так как в римской системе нет отрицательных чисел")
+
+	}
 	var c, l, x, v, i string = "C", "L", "X", "V", "I"
 	var c1, l1, x1, v1, i1 int
 	c1 = input / 100
@@ -171,6 +184,7 @@ func Ator(input int) {
 	} else if i1 == 4 {
 		result += "IX"
 	}
+
 	fmt.Println(result)
 
 }
